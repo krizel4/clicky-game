@@ -4,6 +4,7 @@ import Cards from './components/Cards';
 import theoffice from './theoffice.json';
 import Navbar from './components/Navbar';
 
+
 // =============
 // Following list are things to do and not necessarily things that will appear in the app.js
 // =============
@@ -61,6 +62,7 @@ class App extends Component {
      <Navbar correct={this.state.correct} gameWon={this.state.gameWon} score={this.state.score} highScore={this.state.highScore}/>
         <title>The Office: Memory Game</title>
         {this.state.theoffice.map(employee => (
+          
           <Cards
             id={employee.id}
             key={employee.id}
@@ -69,6 +71,7 @@ class App extends Component {
             correct={this.state.correct}
             clickHandler={this.clickHandler}
           />
+         
         ))}
 
         </>
