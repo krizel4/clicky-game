@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import "./App.css";
-import Cards from "./components/Cards";
-import theoffice from "./theoffice.json";
-import Wrapper from "./components/Wrapper";
+import React, { Component } from 'react';
+import './App.css';
+import Cards from './components/Cards';
+import theoffice from './theoffice.json';
+import Wrapper from './components/Wrapper';
+import Navbar from './components/Navbar';
 
 // =============
 // Following list are things to do and not necessarily things that will appear in the app.js
@@ -50,6 +51,8 @@ class App extends Component {
   // map over this.state.theoffice and render a dunder mifflin card component for each object
   render() {
     return (
+      <>
+      <Navbar />
       <Wrapper>
         <title>The Office: Memory Game</title>
         {this.state.theoffice.map(employee => (
@@ -61,7 +64,8 @@ class App extends Component {
             occupation={employee.occupation}
           />
         ))}
-      </Wrapper>
+        </Wrapper>
+        </>
     );
   }
 }
