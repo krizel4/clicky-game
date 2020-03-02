@@ -1,19 +1,20 @@
-import React from 'react'
+import React from 'react';
+import './style.css';
 
-function Cards({ clickHandler, id, image, name, occupation }) {
+function Cards(props) {
     return (
-        <div className="card">
-            <div className="img-container">
-            <img
-            src={image}
-            alt={name}
-            onClick={() => clickHandler(id)}
-            />
+        <div className='card'>
+            <div className='img-container'>
+            <p><img
+                src={props.image}
+                alt={props.name}
+                onClick={() => props.clickHandler(props.id)}
+            /></p>
             </div>
-            <h2>{name}</h2>
-            <h3>{occupation}</h3>
+            <h4>{props.name}</h4>
+            <p>{props.occupation}</p>
         </div>
     )
 }
 
-export default Cards
+export default Cards;

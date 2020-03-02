@@ -1,15 +1,7 @@
-import React, {
-  Component
-} from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 import Cards from "./components/Cards";
-
-// eslint-disable-next-line
-import Footer from "./components/Footer";
-// eslint-disable-next-line
-import Jumbotron from "./components/Jumbotron";
-// eslint-disable-next-line
-import Navbar from "./components/Navbar";
+import theoffice from "./theoffice.json";
 
 // =============
 // Following list are things to do and not necessarily things that will appear in the app.js
@@ -20,60 +12,56 @@ import Navbar from "./components/Navbar";
 // If an image that's set to true is clicked again, trigger game loss.
 // Once game is set to lost, announce final score
 // Give option to start game over again
-
 // If they restart the game, the score clears out and cards reshuffle.
-class App extends Component {
-  state = {
-      theoffice: [].sort(this.randomize),
-      clicked: [],
-      score: 0,
-      highScore: 0,
-      correct: undefined,
-      gameWon: false
-  }
 
-  randomize = (a, b) => Math.random() > .5 ? -1 : 1
+class App extends Component {
+  // Setting this.state.theoffice to theoffice json array
+  state = {
+    theoffice
+  };
 
   clickHandler = theofficepeeps => {
-      if (this.state.clicked.indexOf(theofficepeeps) === -1) {
-          let score = this.state.clicked.length + 1,
-              clicked = score === this.state.theoffice.length ? [] : [...this.state.clicked, theofficepeeps]
+    if (this.state.clicked.indexOf(theofficepeeps) === -1) {
+      let score = this.state.clicked.length + 1,
+        clicked =
+          score === this.state.theoffice.length
+            ? []
+            : [...this.state.clicked, theofficepeeps];
+      this.setState({
+        theoffice: this.state.theoffice.sort(this.randomize),
+        clicked: clicked,
+        score: score,
+        highScore: Math.max(this.state.highScore, score),
+        correct: true,
+        gameWon: score === this.state.theoffice.length
+      });
+    } else {
+      this.setState({
+        theoffice: this.state.theoffice.sort(this.randomize),
+        clicked: [],
+        score: 0,
+        correct: false,
+        gameWon: false
+      });
+    }
+  };
 
-          this.setState({
-              theoffice: this.state.theoffice.sort(this.randomize),
-              clicked: clicked,
-              score: score,
-              highScore: Math.max(this.state.highScore, score),
-              correct: true,
-              gameWon: score === this.state.theoffice.length
-          })
-      } else {
-          this.setState({
-              theoffice: this.state.theoffice.sort(this.randomize),
-              clicked: [],
-              score: 0,
-              correct: false,
-              gameWon: false
-          })
-      }
-  }
-
-// Render card components
+  // map over this.state.theoffice and render a dunder mifflin card component for each object
   render() {
     return (
       <div>
-      <title>Dunder Mifflin Staff</title>
-      {this.state.theoffice.map(employee => (
-        <Cards
-        id={employee.id}
-        key={employee.id}
-        name={employee.name}
-        image={employee.image}
-        occupation={employee.occupation}
-        />
-      ))}
+        <title>The Office: Memory Game</title>
+        {this.state.theoffice.map(employee => (
+          <Cards
+            id={employee.id}
+            key={employee.id}
+            name={employee.name}
+            image={employee.image}
+            occupation={employee.occupation}
+          />
+        ))}
       </div>
-      );
+    );
   }
 }
 
