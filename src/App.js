@@ -58,7 +58,7 @@ class App extends Component {
   render() {
     return (
       <>
-     <Navbar />
+     <Navbar correct={this.state.correct} gameWon={this.state.gameWon} score={this.state.score} highScore={this.state.highScore}/>
         <title>The Office: Memory Game</title>
         {this.state.theoffice.map(employee => (
           <Cards
