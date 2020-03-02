@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import Cards from './components/Cards';
 import theoffice from './theoffice.json';
-import Wrapper from './components/Wrapper';
 import Navbar from './components/Navbar';
 
 // =============
@@ -19,8 +18,15 @@ import Navbar from './components/Navbar';
 class App extends Component {
   // Setting this.state.theoffice to theoffice json array
   state = {
-    theoffice
-  };
+    theoffice,
+    clicked: [],
+    score: 0,
+    highScore: 0,
+    correct: undefined,
+    gameWon: false
+  }
+
+  randomize = (a, b) => Math.random() > .5 ? -1 : 1
 
   clickHandler = theofficepeeps => {
     if (this.state.clicked.indexOf(theofficepeeps) === -1) {
@@ -52,19 +58,19 @@ class App extends Component {
   render() {
     return (
       <>
-      <Navbar />
-      <Wrapper>
+     <Navbar />
         <title>The Office: Memory Game</title>
         {this.state.theoffice.map(employee => (
           <Cards
             id={employee.id}
             key={employee.id}
-            name={employee.name}
             image={employee.image}
-            occupation={employee.occupation}
+            clicked={employee.clicked}
+            correct={this.state.correct}
+            clickHandler={this.clickHandler}
           />
         ))}
-        </Wrapper>
+
         </>
     );
   }
